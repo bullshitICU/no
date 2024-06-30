@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Availability Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Domain Availability Checker</h1>
+        <input type="text" id="domainInput" placeholder="Enter domain name">
+        <button onclick="checkDomain()">Check Availability</button>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        async function checkDomain() {
+            const domain = document.getElementById('domainInput').value;
+            const messageElement = document.getElementById('message');
+            
+            const apiUrl = `https://api.domainsdb.info/v1/domains/search?domain=${domain}&zone=com`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (data.domains && data.domains.length > 0) {
+                    messageElement.textContent = "The domain is not available.";
+                    messageElement.style.color = "red";
+                } else {
+                    messageElement.textContent = "The domain is available.";
+                    messageElement.style.color = "green";
+                }
+            } catch (error) {
+                messageElement.textContent = "Error checking domain availability.";
+                messageElement.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
