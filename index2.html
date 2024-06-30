@@ -72,6 +72,7 @@
                     messageElement.style.color = "green";
                 }
             } catch (error) {
+                console.error('Error:', error);
                 messageElement.textContent = "Error checking domain availability.";
                 messageElement.style.color = "red";
             }
