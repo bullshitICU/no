@@ -9,8 +9,20 @@
 <body>
     <img src="bc.gif" class="bg" alt="Background GIF">
     <div class="content">
-        <audio id="background-music" src="song.mp3" autoplay></audio>
-        <h1></h1>
+        <audio id="background-music" src="sequoia.mp3"></audio>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var audio = document.getElementById('background-music');
+            audio.play().catch(function() {
+                var button = document.createElement('button');
+                button.innerHTML = 'Play Music';
+                button.onclick = function() {
+                    audio.play();
+                };
+                document.querySelector('.content').appendChild(button);
+            });
+        });
+    </script>
 </body>
 </html>
